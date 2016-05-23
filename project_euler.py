@@ -109,4 +109,12 @@ def problem9():
                     print i * j * k
 
 
-problem9()
+def problem10():
+    prime_sum = 3 // 1 + 2
+    for i in range(4, int(2e6)):
+        if helpers.miller_rabin(i, 10):
+            prime_sum += i
+    print prime_sum
+
+
+problem10()
