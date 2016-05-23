@@ -1,5 +1,6 @@
 # https://projecteuler.net
 import helpers
+import math
 
 
 def problem1():
@@ -98,4 +99,14 @@ def problem8():
     print "Greatest prod is", max(prods)
 
 
-problem8()
+def problem9():
+    for i in range(1, 1000/3):
+        for j in range(1, 1000/2):
+            k = 1000 - j - i
+            if i < j and i < k:
+                if i * i + j * j == k * k:
+                    print i, j, k
+                    print i * j * k
+
+
+problem9()
