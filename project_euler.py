@@ -194,4 +194,26 @@ def problem13():
     print str(total)[:10]
 
 
-problem13()
+def calc_collatz(n):
+    collatz_length = 1
+    while n != 1:
+        if n % 2 == 0:
+            n /= 2
+        else:
+            n = 3 * n + 1
+        collatz_length += 1
+    return collatz_length
+
+
+def problem14():
+    longest_length = 0
+    solution_num = 0
+    for i in range(1, int(1e6)):
+        curr_length = calc_collatz(i)
+        if curr_length > longest_length:
+            longest_length = curr_length
+            solution_num = i
+    print solution_num
+
+
+problem14()
