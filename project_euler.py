@@ -1,6 +1,7 @@
 # https://projecteuler.net
 import helpers
 import math
+from Point import *
 
 
 def problem1():
@@ -216,4 +217,19 @@ def problem14():
     print solution_num
 
 
-problem14()
+def problem15():
+    size = 21
+    matrix = [[0 for x in range(0, size)] for y in range(size)]
+
+    for i in range(0, size):
+        matrix[i][size - 1] = 1
+        matrix[size - 1][i] = 1
+
+    for i in range(0, size - 1)[::-1]:
+        for j in range(0, size - 1)[::-1]:
+            matrix[i][j] = matrix[i + 1][j] + matrix[i][j + 1]
+
+    print matrix[0][0]
+
+
+problem15()
