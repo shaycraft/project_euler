@@ -232,4 +232,14 @@ def problem15():
     print matrix[0][0]
 
 
-problem15()
+def problem16():
+    x = 2**1000
+    digit_sum = 0
+    while x > 0:
+        r = x % 10
+        digit_sum += r
+        x = int(x / 10)
+    print digit_sum
+
+
+problem16()
