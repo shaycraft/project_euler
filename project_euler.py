@@ -242,4 +242,46 @@ def problem16():
     print digit_sum
 
 
-problem16()
+def number_to_words_count(num):
+    nums_single = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    nums_tens = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+    nums_teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+
+    words = []
+    place = len(str(num))
+    if num == 1000:
+        words.append('one thousand')
+
+    else:
+        for c in str(num):
+            x = int(c)
+
+            # special case for teens
+            if place == 2 and x == 1:
+                words.append(nums_teens[int(str(num)[-1:])])
+                place -= 1
+            else:
+                if place == 3:
+                    words.append('{} hundred '.format(nums_single[x]))
+                    if int(str(num)[-2:]) != 0:
+                        words.append(' and ')
+                elif place == 2:
+                    words.append('{}-'.format(nums_tens[x]))
+                elif place == 1:
+                    words.append(nums_single[x])
+            place -= 1
+
+    word_string = ''.join(words).replace(' ', '').replace('-', '')
+
+    letter_sum = len(word_string)
+    return letter_sum
+
+
+def problem17():
+    result = 0
+    for n in range(1, 1001):
+        nwc = number_to_words_count(n)
+        result += nwc
+    print result
+
+problem17()
