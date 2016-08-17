@@ -2,6 +2,7 @@
 import helpers
 import math
 from Point import *
+import sys
 
 
 def problem1():
@@ -284,4 +285,44 @@ def problem17():
         result += nwc
     print result
 
-problem17()
+
+def print_tree(TreeArray):
+    #print 'DEBUG, calling print_tree'
+    #print TreeArray
+    width = len(TreeArray[-1])
+    for i in range(0, width):
+        for j in range(0, width - i):
+            sys.stdout.write('  ')
+        sys.stdout.flush()
+        print " ".join('%02d'%x for x in TreeArray[i])
+        #print
+
+
+def problem18():
+    TreeArray = [[75],[95,64],[17,47,82],[18,35,87,10],[20,4,82,47,65],[19,1,23,75,3,34],[88,2,77,73,7,63,67],[99,65,4,28,6,16,70,92],[41,41,26,56,83,40,80,70,33],[41,48,72,33,47,32,37,16,94,29],[53,71,44,65,25,43,91,52,97,51,14],[70,11,33,28,77,73,17,78,39,68,17,57],[91,71,52,38,17,14,91,43,58,50,27,29,48],[63,66,4,68,89,53,67,30,73,16,69,87,40,31],[04,62,98,27,23,9,70,98,73,93,38,53,60,4,23]]
+    #TreeArray = [[3], [7, 4], [2, 4, 6], [8, 5, 9, 3]]
+
+    paths = [[] for i in range(len(TreeArray))]
+    for i in range(0, len(TreeArray)):
+        paths[i] = [[0] for i in range(len(TreeArray[i]))]
+        if i == 0:
+            paths[i][0] = TreeArray[i][0]
+        else:
+            for j in range(len(TreeArray[i])):
+                # left side of triangle?
+                if j == 0:
+                    paths[i][j] = TreeArray[i][j] + paths[i-1][0]
+                # right side of triangle
+                elif j == len(TreeArray[i]) - 1:
+                    paths[i][j] = TreeArray[i][j] + paths[i-1][-1]
+                else:
+                    # which ancestor has  the largest path value?
+                    if paths[i-1][j-1] > paths[i-1][j]:
+                        paths[i][j] = TreeArray[i][j] + paths[i-1][j-1]
+                    else:
+                        paths[i][j] = TreeArray[i][j] + paths[i-1][j]
+    #print_tree(paths)
+
+    print max(paths[-1])
+
+problem18()
